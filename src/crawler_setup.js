@@ -133,7 +133,7 @@ class CrawlerSetup {
     async handleFailedRequestFunction({ request }) {
         const lastError = request.errorMessages[request.errorMessages.length - 1];
         const errorMessage = lastError ? lastError.split('\n')[0] : 'no error';
-        if (re_pdf.test(errorMessage){
+        if (re_pdf.test(errorMessage)){
            console.log(request.url);
            var result = {
                 "url": request.url,
