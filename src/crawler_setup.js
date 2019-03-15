@@ -7,6 +7,9 @@ const { META_KEY, MAX_EVENT_LOOP_OVERLOADED_RATIO } = require('./consts');
 
 const { utils: { log } } = Apify;
 
+/*cpnstant for regex to check for pdf error*/
+const re_pdf =  /served Content-Type application\/pdf instead of text\/html/gm;
+
 
 /**
  * Replicates the INPUT_SCHEMA with JavaScript types for quick reference
@@ -130,8 +133,13 @@ class CrawlerSetup {
     async handleFailedRequestFunction({ request }) {
         const lastError = request.errorMessages[request.errorMessages.length - 1];
         const errorMessage = lastError ? lastError.split('\n')[0] : 'no error';
-        log.error(`Request ${request.id} failed and will not be retried anymore. Marking as failed.\nLast Error Message: ${errorMessage}`);
-        return this._handleResult(request, null, true);
+        if (re_pdf.test(errorMessage){
+           handlePDFRequest();
+        }
+        else {
+            log.error(`Request ${request.id} failed and will not be retried anymore. Marking as failed.\nLast Error Message: ${errorMessage}`);
+            return this._handleResult(request, null, true);
+        }
     }
 
     /**
