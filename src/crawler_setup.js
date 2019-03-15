@@ -11,7 +11,7 @@ const { utils: { log } } = Apify;
 const re_pdf =  /served Content-Type application\/pdf instead of text\/html/gm;
 
 /* helps with saving pdf when it is found*/
-import { saveAs } from 'file-saver';
+var FileSaver = require('file-saver')
 const filename_re = /[^\/]*\.pdf$/gm;
 
 
