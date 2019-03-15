@@ -137,9 +137,9 @@ class CrawlerSetup {
            console.log(request.url);
            var result = {
                 "url": request.url,
-                "isPDF": TRUE
+                "isPDF": true
             };
-            return this._hendleResult(request,result,false);
+            return this._handleResult(request,result,false);
         }
         else {
             log.error(`Request ${request.id} failed and will not be retried anymore. Marking as failed.\nLast Error Message: ${errorMessage}`);
