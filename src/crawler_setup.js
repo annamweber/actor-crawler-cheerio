@@ -10,6 +10,11 @@ const { utils: { log } } = Apify;
 /*cpnstant for regex to check for pdf error*/
 const re_pdf =  /served Content-Type application\/pdf instead of text\/html/gm;
 
+/* helps with saving pdf when it is found*/
+import { saveAs } from 'file-saver';
+const filename_re = /[^\/]*\.pdf$/gm;
+
+
 
 /**
  * Replicates the INPUT_SCHEMA with JavaScript types for quick reference
@@ -134,8 +139,10 @@ class CrawlerSetup {
         const lastError = request.errorMessages[request.errorMessages.length - 1];
         const errorMessage = lastError ? lastError.split('\n')[0] : 'no error';
         if (re_pdf.test(errorMessage)){
-           console.log(request.url);
-           var result = {
+            console.log(request.url);
+            var filename = filename_re.exec(request.url);
+            FileSaver.saveAs(request.url, filename);
+            var result = {
                 "url": request.url,
                 "isPDF": true
             };
