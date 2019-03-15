@@ -139,6 +139,8 @@ class CrawlerSetup {
                 "url": request.url,
                 "isPDF": true
             };
+            //remove the last error message we dont need it anymore it was handled
+            request.errorMessages.pop()
             return this._handleResult(request,result,false);
         }
         else {
