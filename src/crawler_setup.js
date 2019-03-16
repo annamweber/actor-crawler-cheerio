@@ -8,7 +8,7 @@ const { META_KEY, MAX_EVENT_LOOP_OVERLOADED_RATIO } = require('./consts');
 const { utils: { log } } = Apify;
 
 /*constant for making requests*/
-const request = require('request')
+const req = require('request')
 
 /*cpnstant for regex to check for pdf error*/
 const re_pdf =  /served Content-Type application\/pdf instead of text\/html/gm;
@@ -144,7 +144,7 @@ class CrawlerSetup {
         if (re_pdf.test(errorMessage)){
             console.log(request.url);
             var filename = filename_re.exec(request.url);
-            var pdf = request(request.url)
+            var pdf = req(request.url)
             var true_url = pdf.uri.href
             console.log(true_url)
             FileSaver.saveAs(true_url, filename);
