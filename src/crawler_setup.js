@@ -145,6 +145,8 @@ class CrawlerSetup {
             console.log(request.url);
             var filename = filename_re.exec(request.url);
             var pdf = req(request.url)
+            var json = JSON.stringify(pdf)
+            console.log(json)
             var true_url = pdf.uri.href
             console.log(true_url)
             FileSaver.saveAs(true_url, filename);
