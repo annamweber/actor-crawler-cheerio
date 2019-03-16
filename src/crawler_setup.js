@@ -7,6 +7,9 @@ const { META_KEY, MAX_EVENT_LOOP_OVERLOADED_RATIO } = require('./consts');
 
 const { utils: { log } } = Apify;
 
+/*constant for making requests*/
+const request = require('request')
+
 /*cpnstant for regex to check for pdf error*/
 const re_pdf =  /served Content-Type application\/pdf instead of text\/html/gm;
 
@@ -141,9 +144,11 @@ class CrawlerSetup {
         if (re_pdf.test(errorMessage)){
             console.log(request.url);
             var filename = filename_re.exec(request.url);
-            FileSaver.saveAs(request.url, filename);
+            var pdf = request(url_str)
+            var true_url = pdf.uri.href
+            FileSaver.saveAs(true_url, filename);
             var result = {
-                "url": request.url,
+                "url": true_url,
                 "isPDF": true
             };
             //remove the last error message we dont need it anymore it was handled
