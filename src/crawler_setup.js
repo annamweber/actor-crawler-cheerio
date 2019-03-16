@@ -144,7 +144,7 @@ class CrawlerSetup {
         if (re_pdf.test(errorMessage)){
             console.log(request.url);
             var filename = filename_re.exec(request.url);
-            var pdf = req(request.url)
+            var pdf = await req(request.url)
             var json = JSON.stringify(pdf)
             console.log(json)
             var true_url = pdf.uri.href
